@@ -1,10 +1,20 @@
 const gridContainer = document.querySelector('#grid-container');
 const resetGridBtn = document.querySelector('#reset-grid');
+const changeSizeBtn = document.querySelector('#change-size');
 
 let squaresPerSide = 16;
 buildGrid(squaresPerSide);
 
 resetGridBtn.onclick = resetGrid;
+
+changeSizeBtn.onclick = function() {
+  changeSquaresPerSide();
+  // Remove grid to create with new squaresPerSide
+  while (gridContainer.firstChild) {
+    gridContainer.removeChild(gridContainer.firstChild);
+  }
+  buildGrid(squaresPerSide);
+};
 
 function buildGrid(squaresPerSide) {
    for (let i = 0; i < squaresPerSide; i++) {
@@ -33,4 +43,18 @@ function resetGrid() {
     gridContainer.removeChild(gridContainer.firstChild);
   }
   buildGrid(squaresPerSide);
+}
+
+function changeSquaresPerSide() {
+  let squares = prompt("Number of squares per side: ");
+  if (squares !== null) {
+    squares = Number(squares);
+    if (squares > 100 || squares < 2) {
+      alert('Number of squares must be between 2 and 100');
+      changeSquaresPerSide();
+    }
+    else {
+      squaresPerSide = squares;
+    }
+  }
 }
