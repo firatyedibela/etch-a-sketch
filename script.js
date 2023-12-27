@@ -46,7 +46,6 @@ document.querySelector('body').addEventListener('mouseup', handleUp);
 
 // Painting while clicking and hovering logic
 let isMouseDown = false;
-let isEraserActive = false;
 
 function handleDown(event) {
   isMouseDown = true;
@@ -66,8 +65,17 @@ function handleHover(event) {
 
 function paintCell(cell) {
   if (cell.classList.contains('columns')) {
-    if (isEraserActive) {
+    if (isEraser) {
       cell.style.backgroundColor = 'white';
+    }
+    else if (isRgb) {
+      let colors = {}
+      // Pick random numbers for rgb
+      colors.red = Math.floor(Math.random() * 255);
+      colors.green = Math.floor(Math.random() * 255);
+      colors.blue = Math.floor(Math.random() * 255);
+
+      cell.style.backgroundColor = `rgb(${colors.red}, ${colors.green}, ${colors.blue})`;
     }
     else {
       cell.style.backgroundColor = 'black';
@@ -99,11 +107,19 @@ function changeSquaresPerSide() {
 }
 
 // Eraser button
+let isEraser = false;
 let eraserButton = document.querySelector('#eraser');
 eraserButton.addEventListener('click', event => {
   addToggleStyle(event.target);
   // Change the flag's value
-  isEraserActive = isEraserActive ? false : true;
+  isEraser = isEraser ? false : true;
+});
+
+let isRgb = false;
+let rgbButton = document.querySelector('#rgb');
+rgbButton.addEventListener('click', event => {
+  addToggleStyle(event.target);
+  isRgb = isRgb ? false : true;
 });
 
 function addToggleStyle(element) {
