@@ -2,6 +2,9 @@ const gridContainer = document.querySelector('#grid-container');
 const resetGridBtn = document.querySelector('#reset-grid');
 const changeSizeBtn = document.querySelector('#change-size');
 
+document.addEventListener('dragstart', () => {
+  event.preventDefault();
+});
 
 let squaresPerSide = 16;
 buildGrid(squaresPerSide);
