@@ -2,7 +2,7 @@ const gridContainer = document.querySelector('#grid-container');
 const resetGridBtn = document.querySelector('#reset-grid');
 const changeSizeBtn = document.querySelector('#change-size');
 
-document.addEventListener('dragstart', () => {
+document.addEventListener('dragstart', (event) => {
   event.preventDefault();
 });
 
@@ -46,6 +46,7 @@ document.querySelector('body').addEventListener('mouseup', handleUp);
 
 // Painting while clicking and hovering logic
 let isMouseDown = false;
+let isEraserActive = false;
 
 function handleDown(event) {
   isMouseDown = true;
@@ -65,7 +66,12 @@ function handleHover(event) {
 
 function paintCell(cell) {
   if (cell.classList.contains('columns')) {
-    cell.style.backgroundColor = 'black';
+    if (isEraserActive) {
+      cell.style.backgroundColor = 'white';
+    }
+    else {
+      cell.style.backgroundColor = 'black';
+    }
   }
 }
 
@@ -90,4 +96,21 @@ function changeSquaresPerSide() {
       squaresPerSide = squares;
     }
   }
+}
+
+// Eraser button
+let eraserButton = document.querySelector('#eraser');
+eraserButton.addEventListener('click', event => {
+  addToggleStyle(event.target);
+  // Change the flag's value
+  isEraserActive = isEraserActive ? false : true;
+});
+
+function addToggleStyle(element) {
+  if (element.classList.contains('toggle')) {
+    element.classList.remove('toggle')
+  }
+  else {
+    element.classList.add('toggle');
+  } 
 }

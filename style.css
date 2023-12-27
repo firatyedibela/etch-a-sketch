@@ -22,16 +22,32 @@ body {
   justify-content: start;
   gap: 40px;
   align-items: center;
-  margin-top: 128px;
-
+  margin-top: 64px;
 }
 
-.left-ui-button {
+#ui-right {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: center;
+  margin-top: 64px;
+}
+
+.ui-button {
+  background-color: rgb(48, 48, 48);
+  color: rgb(223, 223, 223);
   width: 250px;
-  font-size: 36px;
+  font-size: 1.5rem;
   font-weight: bold;
   cursor: pointer;
   padding: 8px 8px;
+  border-radius: 16px;
+  border: 8px solid rgb(48, 48, 48);
+}
+
+.toggle {
+  border: 8px solid rgb(94, 94, 251);
 }
 
 #grid-container {
@@ -46,12 +62,6 @@ body {
   border-radius: 5px;
   
 }
-
-#ui-right {
-  flex: 1;
-}
-
-
 
 .rows,
 .columns {
