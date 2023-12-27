@@ -2,6 +2,7 @@ const gridContainer = document.querySelector('#grid-container');
 const resetGridBtn = document.querySelector('#reset-grid');
 const changeSizeBtn = document.querySelector('#change-size');
 
+
 let squaresPerSide = 16;
 buildGrid(squaresPerSide);
 
@@ -14,6 +15,7 @@ changeSizeBtn.onclick = function() {
     gridContainer.removeChild(gridContainer.firstChild);
   }
   buildGrid(squaresPerSide);
+  isMouseDown = false;
 };
 
 function buildGrid(squaresPerSide) {
@@ -30,11 +32,38 @@ function buildGrid(squaresPerSide) {
    };
    // Register event listeners to all squares to paint them black   when hovered
     let cells = document.querySelectorAll('.columns');
-    cells.forEach((cell) => {
-      cell.addEventListener('mouseover', (event) => {
-        event.target.style.backgroundColor = 'black';
-      });
+    cells.forEach(cell => {
+      cell.addEventListener('mousedown', handleDown);
+      cell.addEventListener('mouseover', handleHover);
+      cell.addEventListener('mouseup', handleUp);
     });
+}
+
+document.querySelector('body').addEventListener('mouseup', handleUp);
+
+// Painting while clicking and hovering logic
+let isMouseDown = false;
+
+function handleDown(event) {
+  isMouseDown = true;
+  paintCell(event.target);
+}
+
+function handleUp(event) {
+  isMouseDown = false;
+  paintCell(event.target);
+}
+
+function handleHover(event) {
+  if (isMouseDown) {
+    paintCell(event.target);
+  }
+}
+
+function paintCell(cell) {
+  if (cell.classList.contains('columns')) {
+    cell.style.backgroundColor = 'black';
+  }
 }
 
 function resetGrid() {
@@ -43,6 +72,7 @@ function resetGrid() {
     gridContainer.removeChild(gridContainer.firstChild);
   }
   buildGrid(squaresPerSide);
+  isMouseDown = false;
 }
 
 function changeSquaresPerSide() {
