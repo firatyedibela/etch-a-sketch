@@ -69,7 +69,7 @@ body {
   background-color: white;
   box-shadow: 5px 5px 10px;
   border-radius: 5px;
-  
+  flex-shrink: 0;
 }
 
 .rows,
