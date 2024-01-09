@@ -6,7 +6,7 @@ document.addEventListener('dragstart', (event) => {
   event.preventDefault();
 });
 
-let squaresPerSide = 16;
+let squaresPerSide = 24;
 buildGrid(squaresPerSide);
 
 resetGridBtn.onclick = resetGrid;
@@ -54,7 +54,6 @@ function handleDown(event) {
 
 function handleUp(event) {
   isMouseDown = false;
-  paintCell(event.target);
 }
 
 function handleHover(event) {
@@ -71,9 +70,9 @@ function paintCell(cell) {
     else if (isRgb) {
       let colors = {}
       // Pick random numbers for rgb
-      colors.red = Math.floor(Math.random() * 255);
-      colors.green = Math.floor(Math.random() * 255);
-      colors.blue = Math.floor(Math.random() * 255);
+      colors.red = Math.floor(Math.random() * 256);
+      colors.green = Math.floor(Math.random() * 256);
+      colors.blue = Math.floor(Math.random() * 256);
 
       cell.style.backgroundColor = `rgb(${colors.red}, ${colors.green}, ${colors.blue})`;
     }
@@ -118,10 +117,12 @@ eraserButton.addEventListener('click', event => {
 let isRgb = false;
 let rgbButton = document.querySelector('#rgb');
 rgbButton.addEventListener('click', event => {
+  // In order to emphasize the active button, add some styling
   addToggleStyle(event.target);
   isRgb = isRgb ? false : true;
 });
 
+// In order to emphasize active button, add some styling
 function addToggleStyle(element) {
   if (element.classList.contains('toggle')) {
     element.classList.remove('toggle')
