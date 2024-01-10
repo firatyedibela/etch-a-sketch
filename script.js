@@ -142,6 +142,21 @@ rgbButton.addEventListener('click', event => {
   isRgb = isRgb ? false : true;
 });
 
+let isDarken = false;
+let darkenButton = document.querySelector('#darken');
+darkenButton.addEventListener('click', event => {
+  // In order to emphasize the active button, add some styling
+  addToggleStyle(event.target);
+  isDarken = isDarken ? false : true;
+});
+
+let isLighten = false;
+let lightenButton = document.querySelector('#lighten');
+lightenButton.addEventListener('click', event => {
+  addToggleStyle(event.target);
+  isLighten = isLighten ? false : true;
+});
+
 // In order to emphasize active button, add some styling
 function addToggleStyle(element) {
   if (element.classList.contains('toggle')) {
