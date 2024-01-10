@@ -91,9 +91,7 @@ function paintCell(cell) {
       zeroColorIndex = Math.floor(Math.random() * 2);
       zeroColor = mainRGB[zeroColorIndex];
       colors[zeroColor] = 255;
-
-
-
+      
       cell.style.backgroundColor = `rgb(${colors.red}, ${colors.green}, ${colors.blue})`;
     }
     else {
@@ -132,6 +130,7 @@ eraserButton.addEventListener('click', event => {
   addToggleStyle(event.target);
   // Change the flag's value
   isEraser = isEraser ? false : true;
+  deactivateButton(lightenButton, darkenButton, rgbButton);
 });
 
 let isRgb = false;
@@ -140,6 +139,7 @@ rgbButton.addEventListener('click', event => {
   // In order to emphasize the active button, add some styling
   addToggleStyle(event.target);
   isRgb = isRgb ? false : true;
+  deactivateButton(lightenButton, darkenButton, eraserButton);
 });
 
 let isDarken = false;
@@ -148,6 +148,7 @@ darkenButton.addEventListener('click', event => {
   // In order to emphasize the active button, add some styling
   addToggleStyle(event.target);
   isDarken = isDarken ? false : true;
+  deactivateButton(lightenButton, rgbButton, eraserButton);
 });
 
 let isLighten = false;
@@ -155,6 +156,7 @@ let lightenButton = document.querySelector('#lighten');
 lightenButton.addEventListener('click', event => {
   addToggleStyle(event.target);
   isLighten = isLighten ? false : true;
+  deactivateButton(darkenButton, rgbButton, eraserButton);
 });
 
 // In order to emphasize active button, add some styling
@@ -165,4 +167,11 @@ function addToggleStyle(element) {
   else {
     element.classList.add('toggle');
   } 
+}
+
+// Only 1 button can be active at a time
+function deactivateButton(...args) {
+  args.forEach(arg => {
+    arg.classList.remove('toggle');
+  })
 }
