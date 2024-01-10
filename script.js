@@ -73,6 +73,26 @@ function paintCell(cell) {
       colors.red = Math.floor(Math.random() * 256);
       colors.green = Math.floor(Math.random() * 256);
       colors.blue = Math.floor(Math.random() * 256);
+      
+      // Make one random value 0, one random value 255 in order to make the color more bright and saturated
+      // Pick a random color to make 0 
+      let mainRGB = ["red", "green", "blue"];
+
+      // Get a random number(0, 1, 2) so it can work with index directly
+      let zeroColorIndex = Math.floor(Math.random() * 3);
+
+      let zeroColor = mainRGB[zeroColorIndex];
+      colors[zeroColor] = 0;
+      
+      // Delete the picked color from array so it can't be picked again
+      mainRGB.splice(zeroColorIndex, 1);
+
+      // Pick one of the remaining two colors randomly, to make its value 255
+      zeroColorIndex = Math.floor(Math.random() * 2);
+      zeroColor = mainRGB[zeroColorIndex];
+      colors[zeroColor] = 255;
+
+
 
       cell.style.backgroundColor = `rgb(${colors.red}, ${colors.green}, ${colors.blue})`;
     }
