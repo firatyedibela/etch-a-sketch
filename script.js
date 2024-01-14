@@ -33,7 +33,7 @@ function buildGrid(squaresPerSide) {
       rows.appendChild(columns);
     };
    };
-   // Register event listeners to all squares to paint them black   when hovered
+   // Register event listeners to all squares to paint them black when hovered
     let cells = document.querySelectorAll('.columns');
     cells.forEach(cell => {
       cell.addEventListener('mousedown', handleDown);
@@ -64,11 +64,17 @@ function handleHover(event) {
 
 function paintCell(cell) {
   if (cell.classList.contains('columns')) {
-    if (isEraser) {
+    if (modes.eraser) {
       cell.style.backgroundColor = 'white';
     }
-    else if (isRgb) {
+    else if (modes.rgb) {
       paintRgb(cell);   
+    }
+    else if (modes.darken) {
+      darkenColor(cell);
+    }
+    else if (modes.lighten) {
+      lightenColor(cell);
     }
     else {
       cell.style.backgroundColor = 'black';
@@ -99,57 +105,45 @@ function changeSquaresPerSide() {
   }
 }
 
-// Eraser button
-let isEraser = false;
-let eraserButton = document.querySelector('#eraser');
-eraserButton.addEventListener('click', event => {
-  addToggleStyle(event.target);
-  // Change the flag's value
-  isEraser = isEraser ? false : true;
-  deactivateButton(lightenButton, darkenButton, rgbButton);
-});
-
-let isRgb = false;
-let rgbButton = document.querySelector('#rgb');
-rgbButton.addEventListener('click', event => {
-  // In order to emphasize the active button, add some styling
-  addToggleStyle(event.target);
-  isRgb = isRgb ? false : true;
-  deactivateButton(lightenButton, darkenButton, eraserButton);
-});
-
-let isDarken = false;
-let darkenButton = document.querySelector('#darken');
-darkenButton.addEventListener('click', event => {
-  // In order to emphasize the active button, add some styling
-  addToggleStyle(event.target);
-  isDarken = isDarken ? false : true;
-  deactivateButton(lightenButton, rgbButton, eraserButton);
-});
-
-let isLighten = false;
-let lightenButton = document.querySelector('#lighten');
-lightenButton.addEventListener('click', event => {
-  addToggleStyle(event.target);
-  isLighten = isLighten ? false : true;
-  deactivateButton(darkenButton, rgbButton, eraserButton);
-});
-
-// In order to emphasize active button, add some styling
-function addToggleStyle(element) {
-  if (element.classList.contains('toggle')) {
-    element.classList.remove('toggle')
-  }
-  else {
-    element.classList.add('toggle');
-  } 
+const modes = {
+  eraser: false,
+  rgb: false,
+  darken: false,
+  lighten: false,
 }
 
-// Only 1 button can be active at a time
-function deactivateButton(...args) {
-  args.forEach(arg => {
-    arg.classList.remove('toggle');
-  })
+
+// Only 1 right ui b button active at a time and only 1 right ui button has activated style at a time
+uiButtons = document.querySelectorAll('.ui-button-right');
+uiButtons.forEach((btn) => {
+  btn.addEventListener('click', (event) => {
+    let clickedButton = event.target;
+    activateButton(clickedButton);
+    toggleButtonStyle(clickedButton);
+  });
+});
+// When clicked a right-ui-button, make all modes false, make the clicked mode true
+function activateButton(clickedButton) {
+  for (let key in modes) {
+    if (key !== clickedButton.id) {
+      modes[key] = false;
+    }   
+  }
+  modes[clickedButton.id] = modes[clickedButton.id] === true ? false : true;
+}
+// When clicked a right-ui-button, delete all buttons' toggle class, add the toggle class to the clicked one
+function toggleButtonStyle(clickedButton) {
+  Array.from(uiButtons).forEach((btn) => {
+    if (btn.id !== clickedButton.id) {
+      btn.classList.remove('toggle');
+    } 
+  });
+  if (clickedButton.classList.contains('toggle')) {
+    clickedButton.classList.remove('toggle');
+  }
+  else {
+    clickedButton.classList.add('toggle');
+  }
 }
 
 function paintRgb(cell) {
