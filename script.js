@@ -29,6 +29,7 @@ function buildGrid(squaresPerSide) {
 
     for (let j = 0; j < squaresPerSide; j++) {
       const columns = document.createElement('div');
+      columns.style.backgroundColor = 'rgb(255, 255, 255)';
       columns.classList.add('columns');
       rows.appendChild(columns);
     };
@@ -65,7 +66,7 @@ function handleHover(event) {
 function paintCell(cell) {
   if (cell.classList.contains('columns')) {
     if (modes.eraser) {
-      cell.style.backgroundColor = 'white';
+      cell.style.backgroundColor = 'rgb(255, 255, 255)';
     }
     else if (modes.rgb) {
       paintRgb(cell);   
@@ -77,7 +78,7 @@ function paintCell(cell) {
       lightenColor(cell);
     }
     else {
-      cell.style.backgroundColor = 'black';
+      cell.style.backgroundColor = 'rgb(0, 0, 0)';
     }
   }
 }
@@ -112,7 +113,6 @@ const modes = {
   lighten: false,
 }
 
-
 // Only 1 right ui b button active at a time and only 1 right ui button has activated style at a time
 uiButtons = document.querySelectorAll('.ui-button-right');
 uiButtons.forEach((btn) => {
@@ -122,6 +122,7 @@ uiButtons.forEach((btn) => {
     toggleButtonStyle(clickedButton);
   });
 });
+
 // When clicked a right-ui-button, make all modes false, make the clicked mode true
 function activateButton(clickedButton) {
   for (let key in modes) {
@@ -131,6 +132,7 @@ function activateButton(clickedButton) {
   }
   modes[clickedButton.id] = modes[clickedButton.id] === true ? false : true;
 }
+
 // When clicked a right-ui-button, delete all buttons' toggle class, add the toggle class to the clicked one
 function toggleButtonStyle(clickedButton) {
   Array.from(uiButtons).forEach((btn) => {
@@ -172,4 +174,35 @@ function paintRgb(cell) {
   colors[zeroColor] = 255;
 
   cell.style.backgroundColor = `rgb(${colors.red}, ${colors.green}, ${colors.blue})`;
+}
+
+function darkenColor(cell) {
+  // Need to get the rgb values of cell's background color so we can modify them
+  let colorString = cell.style.backgroundColor;
+  const colors = getRGBValues(colorString);
+  console.log(colors);
+  // Decrease every single one by 20, eventually it will hit 0
+  for (let key in colors) {
+    if (colors[key] === 0) {
+      continue;
+    } 
+    else if (colors[key] - 20 <= 0) {
+      colors[key] = 0;
+    }
+    else {
+      colors[key] -= 20;
+    }
+  }
+  console.log(colors);
+
+  cell.style.backgroundColor = `rgb(${colors.red}, ${colors.green}, ${colors.blue})`;
+}
+
+function getRGBValues(colorString) {
+  let rgbArray = colorString.match(/\d+/g);
+  return {
+    red: parseInt(rgbArray[0]),
+    green: parseInt(rgbArray[1]),
+    blue: parseInt(rgbArray[2]),
+  };
 }
