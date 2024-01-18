@@ -180,7 +180,6 @@ function darkenColor(cell) {
   // Need to get the rgb values of cell's background color so we can modify them
   let colorString = cell.style.backgroundColor;
   const colors = getRGBValues(colorString);
-  console.log(colors);
   // Decrease every single one by 20, eventually it will hit 0
   for (let key in colors) {
     if (colors[key] === 0) {
@@ -193,7 +192,25 @@ function darkenColor(cell) {
       colors[key] -= 20;
     }
   }
-  console.log(colors);
+
+  cell.style.backgroundColor = `rgb(${colors.red}, ${colors.green}, ${colors.blue})`;
+}
+
+function lightenColor(cell) {
+  const colorString = cell.style.backgroundColor;
+  const colors = getRGBValues(colorString);
+
+  for (let key in colors) {
+    if (colors[key] === 255) {
+      continue;
+    }
+    else if (colors[key] + 20 >= 255) {
+      colors[key] = 255;
+    }
+    else {
+      colors[key] +=20;
+    }
+  }
 
   cell.style.backgroundColor = `rgb(${colors.red}, ${colors.green}, ${colors.blue})`;
 }

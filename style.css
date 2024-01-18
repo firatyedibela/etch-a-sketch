@@ -1,10 +1,10 @@
 body {
-  background-color: rgba(255, 68, 0, 0.838);
+  background-color: rgba(97, 74, 66, 0.838);
 }
 
 #title {
   margin: 0;
-  color: purple;
+  color: rgb(199, 104, 199);
   font-size: 108px;
   font-family: Caveat;
   text-align: center;
