@@ -63,6 +63,15 @@ function handleHover(event) {
   }
 }
 
+let customColor = '#000000';
+
+const modes = {
+  eraser: false,
+  rgb: false,
+  darken: false,
+  lighten: false,
+}
+
 function paintCell(cell) {
   if (cell.classList.contains('columns')) {
     if (modes.eraser) {
@@ -78,7 +87,7 @@ function paintCell(cell) {
       lightenColor(cell);
     }
     else {
-      cell.style.backgroundColor = 'rgb(0, 0, 0)';
+      cell.style.backgroundColor = customColor;
     }
   }
 }
@@ -106,31 +115,24 @@ function changeSquaresPerSide() {
   }
 }
 
-const modes = {
-  eraser: false,
-  rgb: false,
-  darken: false,
-  lighten: false,
-}
-
 // Only 1 right ui b button active at a time and only 1 right ui button has activated style at a time
 uiButtons = document.querySelectorAll('.ui-button-right');
 uiButtons.forEach((btn) => {
   btn.addEventListener('click', (event) => {
-    let clickedButton = event.target;
-    activateButton(clickedButton);
-    toggleButtonStyle(clickedButton);
+    let clickedMode = event.target;
+    activateMode(clickedMode);
+    toggleButtonStyle(clickedMode);
   });
 });
 
-// When clicked a right-ui-button, make all modes false, make the clicked mode true
-function activateButton(clickedButton) {
+// When clicked a mode-ui-button, make all modes false, make the clicked mode true
+function activateMode(clickedMode) {
   for (let key in modes) {
-    if (key !== clickedButton.id) {
+    if (key !== clickedMode.id) {
       modes[key] = false;
     }   
   }
-  modes[clickedButton.id] = modes[clickedButton.id] === true ? false : true;
+  modes[clickedMode.id] = modes[clickedMode.id] === true ? false : true;
 }
 
 // When clicked a right-ui-button, delete all buttons' toggle class, add the toggle class to the clicked one
@@ -215,6 +217,7 @@ function lightenColor(cell) {
   cell.style.backgroundColor = `rgb(${colors.red}, ${colors.green}, ${colors.blue})`;
 }
 
+// Darken color and lighten color and paintCustom uses this function
 function getRGBValues(colorString) {
   let rgbArray = colorString.match(/\d+/g);
   return {
@@ -223,3 +226,10 @@ function getRGBValues(colorString) {
     blue: parseInt(rgbArray[2]),
   };
 }
+
+const colorPicker = document.querySelector('#color-picker');
+colorPicker.addEventListener('change', (event) => {
+  customColor = event.target.value;
+});
+
+

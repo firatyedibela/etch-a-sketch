@@ -11,23 +11,29 @@
   <body>
     <p id="title">Etch-A-Sketch</p>
     <div id="main-wrapper">
-      <div id="ui-left">
-        <button id="reset-grid" class="ui-button">Clear</button>
-        <button id="change-size" class="ui-button">Change Size</button>
+      <div id="left-section">
+        <div id="ui-left">
+          <button id="reset-grid" class="ui-button">Clear</button>
+          <button id="change-size" class="ui-button">Change Size</button>
+          <label for="color-picker" id="color-label">
+            <input type="color" id="color-picker" class="mode-button">Pick a Color
+          </label> 
+        </div>
       </div>
 
-      <div id="grid-container"></div>
-
-      <div id="ui-right">
-        <button id="eraser" class="ui-button-right ui-button">Eraser</button>
-        <button id="rgb" class="ui-button-right ui-button">Rainbow</button>
-        <button id="darken" class="ui-button-right ui-button">Darken</button>
-        <button id="lighten" class="ui-button-right ui-button">Lighten</button>
+      <div id="middle-section">
+        <div id="grid-container"></div>
+      </div>
+      
+      <div id="right-section">
+        <div id="ui-right">
+          <button id="eraser" class="ui-button-right ui-button mode-button">Eraser</button>
+          <button id="rgb" class="ui-button-right ui-button mode-button">Rainbow</button>
+          <button id="darken" class="ui-button-right ui-button mode-button">Darken</button>
+          <button id="lighten" class="ui-button-right ui-button mode-button">Lighten</button>
+        </div>
       </div>
     </div>
-    
-    
-    
     
   </body>
 </html>
