@@ -14,10 +14,15 @@
       <div id="left-section">
         <div id="ui-left">
           <button id="reset-grid" class="ui-button">Clear</button>
-          <button id="change-size" class="ui-button">Change Size</button>
           <label for="color-picker" id="color-label">
             <input type="color" id="color-picker" class="mode-button">Pick a Color
-          </label> 
+          </label>
+          <div class="range-container">
+            <input type="range" min="0" max="100" id="range-slider"
+              value="24">
+            <p class="grid-size">Grid size: 24x24</p>
+          </div> 
+          
         </div>
       </div>
 

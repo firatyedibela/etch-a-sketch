@@ -6,20 +6,11 @@ document.addEventListener('dragstart', (event) => {
   event.preventDefault();
 });
 
+// Initial grid size
 let squaresPerSide = 24;
 buildGrid(squaresPerSide);
 
 resetGridBtn.onclick = resetGrid;
-
-changeSizeBtn.onclick = function() {
-  changeSquaresPerSide();
-  // Remove grid to create with new squaresPerSide
-  while (gridContainer.firstChild) {
-    gridContainer.removeChild(gridContainer.firstChild);
-  }
-  buildGrid(squaresPerSide);
-  isMouseDown = false;
-};
 
 function buildGrid(squaresPerSide) {
    for (let i = 0; i < squaresPerSide; i++) {
@@ -41,6 +32,13 @@ function buildGrid(squaresPerSide) {
       cell.addEventListener('mouseover', handleHover);
       cell.addEventListener('mouseup', handleUp);
     });
+}
+
+function updateGrid() {
+  while (gridContainer.firstChild) {
+    gridContainer.removeChild(gridContainer.firstChild);
+  }
+  buildGrid(squaresPerSide);
 }
 
 document.querySelector('body').addEventListener('mouseup', handleUp);
@@ -227,9 +225,24 @@ function getRGBValues(colorString) {
   };
 }
 
+// Color picker
 const colorPicker = document.querySelector('#color-picker');
-colorPicker.addEventListener('change', (event) => {
+colorPicker.addEventListener('input', (event) => {
+  console.log('new color' + event.target.value);
   customColor = event.target.value;
+});
+
+// Update size display when slider moves
+const range = document.querySelector('#range-slider');
+const gridSizeContainer = document.querySelector('.grid-size');
+range.addEventListener('input', (event) => {
+  gridSizeContainer.textContent = `Grid size: ${range.value}x${range.value}`;
+}); 
+
+// Update grid when slider is released
+range.addEventListener('change', (event) => {
+  squaresPerSide = range.value;
+  updateGrid();
 });
 
 

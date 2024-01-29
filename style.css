@@ -133,3 +133,35 @@ button {
 .columns {
   border: 1px solid rgb(169, 168, 168);
 }
+
+.range-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+}
+
+.grid-size {
+  font-family: "typewriter";
+  color: rgb(199, 199, 199);
+  font-size: 1.1rem;
+}
+
+input[type="range"] {
+  appearance: none;
+  height: 2px;
+  width: 100%;
+  background-color: rgb(48, 48, 48);
+  color: black;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  border-radius: 10px;
+  background-color: rgb(160, 160, 160);
+}
+
+
