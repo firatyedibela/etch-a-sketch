@@ -226,7 +226,7 @@ function getRGBValues(colorString) {
 }
 
 // Color picker
-const colorPicker = document.querySelector('#color-picker');
+const colorPicker = document.querySelector('#pen-color');
 colorPicker.addEventListener('input', (event) => {
   console.log('new color' + event.target.value);
   customColor = event.target.value;
@@ -245,4 +245,14 @@ range.addEventListener('change', (event) => {
   updateGrid();
 });
 
+// Change canvas color
+const canvasColorPicker = document.querySelector('#canvas-color');
+console.log(canvasColorPicker.value);
+canvasColorPicker.value = '#FFFFFF';
+  canvasColorPicker.addEventListener('input', (event) => {
+    let cells = document.querySelectorAll('.columns');
+    cells.forEach((cell) => {
+      cell.style.backgroundColor = event.target.value;
+    });
+  });
 

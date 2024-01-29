@@ -62,20 +62,26 @@ button {
   gap: 40px;
 }
 
-#color-label {
+.color-pickers-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.color-label {
   width: 100%;
   align-self: start;
   font-family: "typewriter";
   font-size: 1.3rem;
-  color: rgb(36, 29, 29);
+  color: rgb(199, 199, 199);
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  gap: 5px;
   cursor: pointer;
   font-weight: bold;
 }
 
-#color-picker {
+.color-picker {
   padding: 0;
   background-color: transparent;
   border: none;
